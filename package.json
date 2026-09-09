@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node bootstrap.mjs && node tools/fetch-static-assets.mjs && (node tools/generate-llms.js || true) && vite build"
+    "build": "node bootstrap.mjs && node tools/fetch-static-assets.mjs && node tools/apply-brand-favicon.mjs && (node tools/generate-llms.js || true) && vite build"
   },
   "dependencies": {
     "framer-motion": "11.15.0",
