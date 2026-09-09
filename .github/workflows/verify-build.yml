@@ -1,0 +1,35 @@
+name: Verify Ginoteq Website Build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build site
+        run: npm run build
+
+      - name: Verify branded favicon and routes
+        run: |
+          test -f dist/index.html
+          test -f dist/favicon.svg
+          grep -q "data:image/jpeg;base64" dist/favicon.svg
+          grep -q "ginoteq-brand-g-20260909" dist/index.html
