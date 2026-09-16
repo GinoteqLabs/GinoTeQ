@@ -2,6 +2,7 @@ import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { extname, join } from 'node:path';
 
 const SITE_URL = 'https://ginoteqgroup.com';
+const ORGANIZATION_LOGO = `${SITE_URL}/favicon.svg`;
 const MARKER_START = '<!-- GINOTEQ_SEO_INDEXING_V1_START -->';
 const MARKER_END = '<!-- GINOTEQ_SEO_INDEXING_V1_END -->';
 
@@ -68,11 +69,8 @@ function discoverRoutes(source) {
     }
   }
 
-  // The current site has an Updates page; retain it even if routing syntax changes.
   if (source.includes('UpdatesPage')) routes.add('/updates');
 
-  // If content objects expose slugs, combine them with any :slug route so article
-  // pages can be submitted in the sitemap without manually maintaining a list.
   const slugs = new Set();
   for (const match of source.matchAll(/\bslug\s*:\s*["'`]([a-z0-9][a-z0-9\/_-]*)["'`]/gi)) {
     slugs.add(match[1].replace(/^\/+|\/+$/g, ''));
@@ -151,7 +149,6 @@ await writeFile('public/sitemap.xml', buildSitemap(routes), 'utf8');
 const indexPath = 'index.html';
 let html = await readFile(indexPath, 'utf8');
 
-// Remove accidental global noindex directives if one was inherited from a preview build.
 html = html.replace(/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex[^"']*["'][^>]*>\s*/gi, '');
 html = html.replace(/<meta[^>]+content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["'][^>]*>\s*/gi, '');
 
@@ -165,11 +162,13 @@ html = html.replace(/<title>[^<]*<\/title>/i, `<title>${homepageTitle}</title>`)
 html = html.replace(/<meta\s+name=["']description["'][^>]*>\s*/i, '');
 
 const seoBlock = `${MARKER_START}
+<link rel="canonical" href="${SITE_URL}/">
 <meta name="description" content="${homepageDescription}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="author" content="Ginoteq">
 <meta property="og:site_name" content="Ginoteq">
 <meta property="og:type" content="website">
+<meta property="og:url" content="${SITE_URL}/">
 <meta property="og:title" content="${homepageTitle}">
 <meta property="og:description" content="${homepageDescription}">
 <meta name="twitter:card" content="summary_large_image">
@@ -180,6 +179,7 @@ const seoBlock = `${MARKER_START}
   '@type': 'Organization',
   name: 'Ginoteq',
   url: SITE_URL,
+  logo: ORGANIZATION_LOGO,
   description: homepageDescription,
   areaServed: {
     '@type': 'Country',
