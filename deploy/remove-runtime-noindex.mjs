@@ -35,6 +35,10 @@ for (const file of files) {
   }
 }
 
+if (replacements === 0) {
+  throw new Error('SEO guard expected an inherited runtime noindex/nofollow directive but found none.');
+}
+
 const remaining = [];
 for (const file of files) {
   const text = await readFile(file, 'utf8');
