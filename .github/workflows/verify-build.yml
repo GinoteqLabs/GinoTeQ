@@ -42,3 +42,10 @@ jobs:
           grep -q 'gino-photo-hero' src/pages/HomePage.jsx
           grep -q 'GINOTEQ_PHOTOGRAPHIC_HERO_V2' src/index.css
           grep -q 'Explore Our Work' src/pages/HomePage.jsx
+
+      - name: Verify moving cinematic hero
+        run: |
+          grep -q 'GINOTEQ_CINEMATIC_VIDEO_V1' src/pages/HomePage.jsx
+          grep -q 'gino-video-backdrop' src/index.css
+          test -s dist/assets/ginoteq-cinematic-hero.webp
+          grep -Rlq '1f8b2e43-28a9-4023-a8fe-b7021a42be66.mp4' dist/assets
