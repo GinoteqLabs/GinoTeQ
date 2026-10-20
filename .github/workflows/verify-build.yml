@@ -38,7 +38,7 @@ jobs:
 
       - name: Verify photographic hero and responsive source
         run: |
-          test -s dist/assets/ginoteq-cinematic-hero.webp
+          test -s dist/assets/ginoteq-video-poster.webp
           grep -q 'gino-photo-hero' src/pages/HomePage.jsx
           grep -q 'GINOTEQ_PHOTOGRAPHIC_HERO_V2' src/index.css
           grep -q 'Explore Our Work' src/pages/HomePage.jsx
