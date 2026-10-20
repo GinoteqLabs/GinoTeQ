@@ -25,3 +25,6 @@
 @media (prefers-reduced-motion: reduce) {
  .gino-photo-hero > .gino-video-backdrop { display: none; }
 }
+
+/* Authentic frame from the moving film, replacing the old illustrative poster. */
+.gino-photo-hero::before { background-image: url("/assets/ginoteq-video-poster.webp"); }
