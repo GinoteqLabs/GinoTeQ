@@ -9,7 +9,7 @@ AI-generated illustrative footage, not documentary evidence or actual customer p
 - Public H.264 MP4: `https://d2ol7oe51mr4n9.cloudfront.net/user_3Kdwr1NqphQ3AQUnvNY21TF1Oz7/1f8b2e43-28a9-4023-a8fe-b7021a42be66.mp4`
 - Exact video SHA-256: `4a5c27fdf5409a4995ff00295faebdf19c3159bc9776400a34f11c745babeb5e`
 - 1280 × 720, 24fps, H.264, ~1.16 MB, audio removed, ~15.17 seconds.
-- Poster artwork: `public/assets/ginoteq-cinematic-hero.webp` in this repository, or the Site's corresponding uploaded copy.
+- Poster artwork: `public/assets/ginoteq-video-poster.webp` in this repository, or the Site's corresponding uploaded copy.
 
 ## How to port to the **existing** Ginoteq Site
 
@@ -26,7 +26,7 @@ AI-generated illustrative footage, not documentary evidence or actual customer p
 
 - `deploy/apply-cinematic-video.mjs` safely injects the film after `apply-cinematic-photo.mjs` into the archived React homepage.
 - `deploy/cinematic-video-hero.css` handles layout, overlay stacking, mobile and reduced-motion.
-- `public/assets/ginoteq-cinematic-hero.webp` remains the fallback.
+- `public/assets/ginoteq-video-poster.webp` remains the fallback.
 
 The MP4 is hosted on an external CDN rather than checked into this repository. The poster remains inside the GitHub project. A verified same-domain Site media upload is preferable for long-term operations. In the meantime, the source and checksum are pinned above.
 
