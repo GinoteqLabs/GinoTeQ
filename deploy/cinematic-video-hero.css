@@ -1,0 +1,27 @@
+/* GINOTEQ_CINEMATIC_VIDEO_V1
+   Film is AI-generated illustrative footage; do not imply real customers.
+   The .gino-photo-hero's ::after gradient stays between film and content. */
+.gino-photo-hero > .gino-video-backdrop {
+ position: absolute;
+ inset: 0;
+ z-index: 0;
+ display: block;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ object-position: right center;
+ pointer-events: none;
+ opacity: .92;
+}
+/* Keep text, navigation and CTAs ABOVE the film and gradient. */
+.gino-photo-hero > :not(.gino-video-backdrop) {
+ position: relative;
+ z-index: 2;
+}
+@media (max-width: 767px) {
+ /* Mobile data and narrow layouts use the bundled photographic poster. */
+ .gino-photo-hero > .gino-video-backdrop { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .gino-photo-hero > .gino-video-backdrop { display: none; }
+}
