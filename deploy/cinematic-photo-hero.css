@@ -1,0 +1,61 @@
+/* GINOTEQ_PHOTOGRAPHIC_HERO_V2
+   Photography is a decorative layer. Real hero content remains selectable,
+   keyboard accessible, and unaffected by the background.
+   Image source: public/assets/ginoteq-cinematic-hero.webp
+*/
+.gino-photo-hero {
+  isolation: isolate;
+  overflow: hidden;
+  background: #060c17;
+}
+.gino-photo-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("/assets/ginoteq-cinematic-hero.webp");
+  background-position: right center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  transform: scale(1.015);
+}
+.gino-photo-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    #050914 0%,
+    rgba(5,9,20,.99) 19%,
+    rgba(5,9,20,.94) 32%,
+    rgba(5,9,20,.7) 48%,
+    rgba(5,9,20,.24) 69%,
+    rgba(5,9,20,.07) 100%
+  );
+}
+.gino-photo-hero > * { position: relative; z-index: 2; }
+/* The former glowing-node network was rendered inside this grid element. */
+.gino-photo-hero .aspect-square.pointer-events-none {
+  display: none !important;
+}
+@media (min-width: 1600px) {
+  .gino-photo-hero::before { background-size: 63% auto; }
+}
+@media (max-width: 767px) {
+  .gino-photo-hero::before {
+    background-position: 66% top;
+    background-size: auto 66%;
+    opacity: .5;
+  }
+  .gino-photo-hero::after {
+    background: linear-gradient(180deg,
+      rgba(5,9,20,.5) 0%,
+      rgba(5,9,20,.9) 35%,
+      #050914 80%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gino-photo-hero::before { transform: none; }
+}
