@@ -1,0 +1,12 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+const path='src/pages/HomePage.jsx';
+const anchor='className="gino-shell relative flex min-h-[75vh] flex-col items-start justify-center pb-16 pt-[124px] md:flex-row md:items-center md:pt-[108px] xl:min-h-[78vh]"';
+let source=await readFile(path,'utf8');
+if(!source.includes(anchor))throw new Error('Homepage hero markup changed: cinematic patch requires review.');
+source=source.replace(anchor,anchor.replace('gino-shell relative','gino-shell gino-photo-hero relative'));
+if(!source.includes('gino-photo-hero'))throw new Error('Unable to activate cinematic hero.');
+await writeFile(path,source);
+let css=await readFile('src/index.css','utf8');
+css+='\n'+await readFile('deploy/cinematic-photo-hero.css','utf8');
+await writeFile('src/index.css',css);
+console.log('[cinematic] Photographic homepage hero configured. Asset URL:',process.env.VITE_GINOTEQ_HERO_IMAGE_URL?'provided':'NOT CONFIGURED');
