@@ -15,7 +15,7 @@ const video = `
   {/* ${marker}: decorative, autoplay-muted moving showreel. */}
   <video className="gino-video-backdrop" aria-hidden="true" tabIndex={-1}
     autoPlay muted loop playsInline preload="metadata"
-    poster="/assets/ginoteq-cinematic-hero.webp"
+    poster="/assets/ginoteq-video-poster.webp"
     disablePictureInPicture>
     <source src="${videoUrl}" type="video/mp4" />
   </video>`;
