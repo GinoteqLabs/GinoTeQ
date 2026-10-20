@@ -3,6 +3,8 @@ name: Verify Ginoteq Website Build
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -16,10 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js 20
+      - name: Use Node.js 24
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: npm install --no-audit --no-fund
@@ -33,3 +35,12 @@ jobs:
           test -f dist/favicon.svg
           grep -q "data:image/jpeg;base64" dist/favicon.svg
           grep -q "ginoteq-brand-g-20260909" dist/index.html
+
+      - name: Verify cinematic homepage build
+        run: |
+          test -f src/components/GinoteqCinematicHero.jsx
+          test -f src/components/GinoteqCinematicHero.css
+          grep -q 'gino-hero-stage' src/pages/HomePage.jsx
+          grep -q '<GinoteqCinematicHero />' src/pages/HomePage.jsx
+          grep -Rlq 'CONSTRUCTION INTELLIGENCE' dist/assets
+          grep -Rlq 'SERVICE JOURNEY' dist/assets
