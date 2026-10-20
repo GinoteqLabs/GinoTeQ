@@ -3,6 +3,8 @@ name: Verify Ginoteq Website Build
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -16,10 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js 20
+      - name: Use Node.js 24
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: npm install --no-audit --no-fund
@@ -33,3 +35,10 @@ jobs:
           test -f dist/favicon.svg
           grep -q "data:image/jpeg;base64" dist/favicon.svg
           grep -q "ginoteq-brand-g-20260909" dist/index.html
+
+      - name: Verify photographic hero and responsive source
+        run: |
+          test -s dist/assets/ginoteq-cinematic-hero.webp
+          grep -q 'gino-photo-hero' src/pages/HomePage.jsx
+          grep -q 'GINOTEQ_PHOTOGRAPHIC_HERO_V2' src/index.css
+          grep -q 'Explore Our Work' src/pages/HomePage.jsx
